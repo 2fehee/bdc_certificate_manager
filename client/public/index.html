@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        body {
+            background-color: #DDDDDD;
+        }
+        #createCertificate_clear {
+            background-color: #BBBBBB;
+        }
+        #certificateInfo_clear {
+            background-color: #BBBBBB;
+        }
+        #checkLatestCertificate_clear {
+            background-color: #BBBBBB;
+        }
+        button {
+            background-color: #FFFFCC;
+        }
+        hr{
+            color: red;
+            border: 0.5px solid #BBBBBB;
+        }
+    </style>
+
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/bootstrap-slider.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.2.0/css/bootstrap-slider.min.css">
+
+    <script src="client.js"></script>
+
+</head>
+<body>
+
+<div>
+    <div>
+        <p> * 인증서 생성 *
+        <p><hr><b>[createCertificate]</b> <button type="button" id="createCertificate_clear">Refresh</button></p>
+        검증자 Address: <input type="text" id="createCertificate_addressFrom" style="width:350px;"><p>
+        검증자 PrivateKey : <input type="text" id="createCertificate_privateKey" style="width:550px;"><p>
+        bID : <input type="text" id="createCertificate_bID" style="width:350px;"><p>
+        evID : <input type="text" id="createCertificate_evID" style="width:350px;"><p>
+        soh : <input type="text" id="createCertificate_soh" style="width:350px;"><p>
+        grade : <input type="text" id="createCertificate_grade" style="width:350px;"><p>
+        expirationDate : <input type="text" id="createCertificate_expirationDate" style="width:350px;"><p>
+        certificateHash : <input type="text" id="createCertificate_certificateHash" style="width:350px;"><p>
+        <button type="button" id="createCertificate">createCertificate</button>
+        <p> 인증서 ID : <input type="text" id="createCertificate_result" style=width:350px;">
+    </div>
+</div>
+
+<div>
+    <div style="margin-top:100px;">
+        <p> * 인증서 확인 *
+        <p><hr><b>[certificateInfo]</b> <button type="button" id="certificateInfo_clear">Refresh</button></p>
+        bID : <input type="text" id="certificateInfo_bID" style="width:350px;"><p>
+        cID : <input type="text" id="certificateInfo_cID" style="width:350px;"><p>
+        <button type="button" id="certificateInfo">certificateInfo</button>
+        <p> 인증서 결과 값 : <input type="text" id="certificateInfo_result" style=width:550px;">
+    </div>
+</div>
+
+<div>
+    <div style="margin-top:100px;">
+        <p> * 인증서 진위 여부 판단 *
+        <p><hr><b>[checkLatestCertificate]</b> <button type="button" id="checkLatestCertificate_clear">Refresh</button></p>
+        bID : <input type="text" id="checkLatestCertificate_bID" style="width:350px;"><p>
+        cID : <input type="text" id="checkLatestCertificate_cID" style="width:550px;"><p>
+        certificateHash : <input type="text" id="checkLatestCertificate_certificateHash" style="width:350px;"><p>
+        <button type="button" id="checkLatestCertificate">checkLatestCertificate</button>
+        <p> 인증서 진위 여부 : <input type="text" id="checkLatestCertificate_result" style=width:100px;">
+    </div>
+</div>
+
+<div>
+    <div style="margin-top:100px;">
+    </div>
+</div>
+
+<style type="text/css" >
+    .wrap-loading{
+        position: fixed;
+        left:0;
+        right:0;
+        top:0;
+        bottom:0;
+        background: rgba(0,0,0,0.2); /*not in ie */
+        filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr='#20000000', endColorstr='#20000000');    /* ie */
+
+    }
+    .wrap-loading div{
+        position: fixed;
+        top:50%;
+        left:50%;
+        margin-left: -21px;
+        margin-top: -21px;
+    }
+    .display-none{
+        display:none;
+    }
+
+</style>
+
+<div class="wrap-loading display-none">
+    <div><img src="loading.gif"></div>
+</div>
+
+</body>
+</html>

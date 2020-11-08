@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  mariadb:
+    image: mariadb:10.2.21
+    container_name: bdc-certificate-manager_mariadb
+    hostname: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: skcc1234
+      MYSQL_USER: bdc_certificate_manager
+      MYSQL_PASSWORD: skcc1234
+      MYSQL_DATABASE: bdc_certificate_manager
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mariadb-data:/var/lib/mysql

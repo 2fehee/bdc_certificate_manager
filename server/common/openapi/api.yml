@@ -1,0 +1,469 @@
+openapi: 3.0.1
+info:
+  title: bdc-certificate-manager
+  description: bdc-certificate-manager API service
+  version: 0.1.5
+servers:
+  - url: /api/v1
+tags:
+  - name: Info
+    description: App Information
+  - name: Certificate
+    description: bdc-certificate-manager API
+  - name: Util
+    description: bdc-certificate-manager util API
+paths:
+  /readiness:
+    get:
+      tags:
+        - Info
+      description: Check Readiness
+      responses:
+        '200':
+          description: Return the result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
+  /certificate/preparation/newInfo:
+    get:
+      tags:
+        - Certificate
+      description: get newInfo
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: string
+        - name: cID
+          in: query
+          description: cID
+          required: true
+          schema:
+            type: string
+        - name: grade
+          in: query
+          description: grade
+          required: true
+          schema:
+            type: string
+        - name: evaluationDate
+          in: query
+          description: evaluationDate
+          required: true
+          schema:
+            type: string
+        - name: evaluationAgency
+          in: query
+          description: evaluationAgency
+          required: true
+          schema:
+            type: string
+        - name: certificateHash
+          in: query
+          description: certificateHash
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is Transaction Object (before sign)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificatePreparationNewInfoResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/sendSignedTx:
+    post:
+      tags:
+        - Certificate
+      description: create Certificate
+      requestBody:
+        description: signed data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendSignedTx'
+        required: true
+      responses:
+        '200':
+          description: Return the result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/certificateInfo:
+    get:
+      tags:
+        - Certificate
+      description: get certificateInfo
+      parameters:
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: string
+        - name: cID
+          in: query
+          description: cID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is certificateInfo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/checkLatestCertificate:
+    get:
+      tags:
+        - Certificate
+      description: get checkLatestCertificate
+      parameters:
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: string
+        - name: cID
+          in: query
+          description: cID
+          required: true
+          schema:
+            type: string
+        - name: certificateHash
+          in: query
+          description: certificateHash
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is checkLatestCertificate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/checkOldCertificate:
+    get:
+      tags:
+        - Certificate
+      description: get checkOldCertificate
+      parameters:
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: string
+        - name: cID
+          in: query
+          description: cID
+          required: true
+          schema:
+            type: string
+        - name: certificateHash
+          in: query
+          description: certificateHash
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is checkOldCertificate
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/certificateCount:
+    get:
+      tags:
+        - Certificate
+      description: get certificateCount
+      parameters:
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is certificateCount
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CertificateResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /util/sign:
+    post:
+      tags:
+        - Util
+      description: Sign Data
+      requestBody:
+        description: private key (except 0x) and singing json data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Util'
+        required: true
+      responses:
+        '200':
+          description: Returns the result
+  /util/accountKeyPair:
+    get:
+      tags:
+        - Util
+      description: Get pulic key and private key pair
+      responses:
+        '200':
+          description: Return the result
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: >-
+            https://chainzdev-iam.skcc.com/auth/realms/chainz/protocol/openid-connect/token
+          scopes: {}
+  schemas:
+    SendSignedTx:
+      type: object
+      required:
+        - signedData
+      properties:
+        signedData:
+          type: string
+    any:
+      type: object
+      properties:
+        signedData:
+          type: string
+    Util:
+      type: object
+      required:
+        - privateKey
+        - signingData
+      properties:
+        privateKey:
+          type: string
+        signingData:
+          type: object
+    CommonResponse:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+    DefaultErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        success:
+          type: boolean
+        errorResponse:
+          $ref: '#/components/schemas/ErrorResponse'
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+        debugMessgae:
+          type: string
+    CommonStringResponse:
+      allOf:
+        - $ref: '#/components/schemas/CommonResponse'
+        - type: object
+          properties:
+            result:
+              type: string
+    CertificateResponse:
+      allOf:
+        - $ref: '#/components/schemas/CommonResponse'
+        - type: object
+          properties:
+            result:
+              type: string
+    CertificatePreparationNewInfoResponse:
+      allOf:
+        - $ref: '#/components/schemas/CommonResponse'
+        - type: object
+          properties:
+            result:
+              type: object
+              properties:
+                nonce:
+                  type: string
+                from:
+                  type: string
+                gas:
+                  type: string
+                gasPrice:
+                  type: string
+                to:
+                  type: string
+                data:
+                  type: string

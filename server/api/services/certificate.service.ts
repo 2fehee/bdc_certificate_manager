@@ -4,6 +4,7 @@ import errorCode from '../../common/error/errorCode';
 import l from '../../common/logger';
 import { TransactionReceipt } from 'web3-core';
 import { web3Config } from '../../common/web3';
+import crypto from 'crypto';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import bdcCertificateManagerABI from '../../../contract/bdcCertificateManager/bdcCertificateManagerABI.json';
@@ -25,6 +26,11 @@ const web3 = web3Config();
 const BCMContract = new web3.eth.Contract(bdcCertificateManagerABI, addressTo);
 
 export class CertificateService {
+
+  async getFileHash(buffer): Promise<any> {
+    const hash = await crypto.createHash('sha256').update(buffer).digest('hex');
+    return '0x' + hash;
+  }
 
   async callNewCertificate(signedData: string): Promise<TransactionReceipt> {
     l.info('signedData : ' + signedData);
@@ -60,7 +66,7 @@ export class CertificateService {
         const returnTxObject: txObject = {
           nonce: web3.utils.numberToHex(txnCount),
           from: addressFrom,
-          gas: web3.utils.toHex(1237312),
+          gas: web3.utils.toHex(21000000),
           gasPrice: web3.utils.numberToHex(0),
           to: addressTo,
 

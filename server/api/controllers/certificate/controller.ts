@@ -1,6 +1,7 @@
 import CertificateService from '../../services/certificate.service';
 import { Request, Response } from 'express';
 import l from '../../../common/logger';
+import multer from 'multer';
 
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 interface txObject {
@@ -12,10 +13,19 @@ interface txObject {
   data: string;
 }
 
+var upload = multer({
+  storage: multer.memoryStorage()
+}).single('uploadDocument');
+
 export class Controller {
 
   async getNewInfo(req): Promise<txObject> {
     let returnResult: txObject;
+
+    //const docName = req.files[0].originalname;
+    //const fileHash = await CertificateService.getFileHash(req.files[0].buffer);
+    //l.info('docName : ' + docName);
+    //l.info('fileHash : ' + fileHash);
 
     l.info('req.query.from : ' + req.query.from);
 
@@ -26,6 +36,7 @@ export class Controller {
     const evaluationDate: string = req.query.evaluationDate;
     const evaluationAgency: string = req.query.evaluationAgency;
     const certificateHash: string = req.query.certificateHash;
+    //const certificateHash: string = fileHash;
 
     // eslint-disable-next-line prefer-const
     const getNewInfoResult = await CertificateService.callGetNewInfo(

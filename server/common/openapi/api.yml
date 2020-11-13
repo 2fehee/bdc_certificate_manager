@@ -9,7 +9,7 @@ tags:
   - name: Info
     description: App Information
   - name: Certificate
-    description: bdc-certificate-manager API
+    description: bdc-certificate-manager Certificate API
   - name: Util
     description: bdc-certificate-manager util API
 paths:
@@ -25,11 +25,359 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommonStringResponse'
-  /certificate/preparation/newInfo:
+  /certificate/SignedTx:
+    post:
+      tags:
+        - Certificate
+      description: send SignedTx
+      requestBody:
+        description: signed data
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendSignedTx'
+        required: true
+      responses:
+        '200':
+          description: Return the result
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/preparation/newBNFTTxObject:
     get:
       tags:
         - Certificate
-      description: get newInfo
+      description: get NewBNFTTxObject
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: number
+        - name: ownerName
+          in: query
+          description: ownerName
+          required: true
+          schema:
+            type: string
+        - name: manufacturerName
+          in: query
+          description: manufacturerName
+          required: true
+          schema:
+            type: string
+        - name: modelName
+          in: query
+          description: modelName
+          required: true
+          schema:
+            type: string
+        - name: manufacturerDate
+          in: query
+          description: manufacturerDate
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is Transaction Object (before sign)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxObjectResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/preparation/removeBNFTTxObject:
+    get:
+      tags:
+        - Certificate
+      description: get RemoveBNFTTxObject
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: result is Transaction Object (before sign)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxObjectResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/preparation/transferFromBNFTTxObject:
+    get:
+      tags:
+        - Certificate
+      description: get TransferFromBNFTTxObject
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: transferFrom
+          in: query
+          description: transferFrom
+          required: true
+          schema:
+            type: string
+        - name: transferTo
+          in: query
+          description: transferTo
+          required: true
+          schema:
+            type: string
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: result is Transaction Object (before sign)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxObjectResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/balanceOfBNFT:
+    get:
+      tags:
+        - Certificate
+      description: get BalanceOfBNFT
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is BalanceOfBNFT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/tokenURIBNFT:
+    get:
+      tags:
+        - Certificate
+      description: get TokenURIBNFT
+      parameters:
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: result is TokenURIBNFT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/totalSupplyBNFT:
+    get:
+      tags:
+        - Certificate
+      description: get TotalSupplyBNFT
+      responses:
+        '200':
+          description: result is TotalSupplyBNFT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/preparation/newCertiTxObject:
+    get:
+      tags:
+        - Certificate
+      description: get NewCertiTxObject
       parameters:
         - name: from
           in: query
@@ -79,7 +427,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CertificatePreparationNewInfoResponse'
+                $ref: '#/components/schemas/TxObjectResponse'
         '400':
           description: Bad request.
           content:
@@ -104,25 +452,31 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DefaultErrorResponse'
-  /certificate/sendSignedTx:
-    post:
+  /certificate/preparation/removeCertiTxObject:
+    get:
       tags:
         - Certificate
-      description: create Certificate
-      requestBody:
-        description: signed data
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SendSignedTx'
-        required: true
+      description: get RemoveCertiTxObject
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: bID
+          in: query
+          description: bID
+          required: true
+          schema:
+            type: number
       responses:
         '200':
-          description: Return the result
+          description: result is Transaction Object (before sign)
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CertificateResponse'
+                $ref: '#/components/schemas/TxObjectResponse'
         '400':
           description: Bad request.
           content:
@@ -171,7 +525,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CertificateResponse'
+                $ref: '#/components/schemas/CommonStringResponse'
         '400':
           description: Bad request.
           content:
@@ -226,7 +580,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CertificateResponse'
+                $ref: '#/components/schemas/CommonStringResponse'
         '400':
           description: Bad request.
           content:
@@ -281,7 +635,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CertificateResponse'
+                $ref: '#/components/schemas/CommonStringResponse'
         '400':
           description: Bad request.
           content:
@@ -324,7 +678,177 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CertificateResponse'
+                $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/preparation/transferBPTTxObject:
+    get:
+      tags:
+        - Certificate
+      description: get TransferBPTTxObject
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: recipient
+          in: query
+          description: recipient
+          required: true
+          schema:
+            type: string
+        - name: amount
+          in: query
+          description: amount
+          required: true
+          schema:
+            type: number
+      responses:
+        '200':
+          description: result is Transaction Object (before sign)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxObjectResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/symbolBPT:
+    get:
+      tags:
+        - Certificate
+      description: get SymbolBPT
+      responses:
+        '200':
+          description: result is SymbolBPT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/totalSupplyBPT:
+    get:
+      tags:
+        - Certificate
+      description: get TotalSupplyBPT
+      responses:
+        '200':
+          description: result is getTotalSupplyBPT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/balanceOfBPT:
+    get:
+      tags:
+        - Certificate
+      description: get BalanceOfBPT
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is BalanceOfBPT
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CommonStringResponse'
         '400':
           description: Bad request.
           content:
@@ -447,7 +971,7 @@ components:
           properties:
             result:
               type: string
-    CertificatePreparationNewInfoResponse:
+    TxObjectResponse:
       allOf:
         - $ref: '#/components/schemas/CommonResponse'
         - type: object

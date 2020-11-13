@@ -13,13 +13,139 @@ interface txObject {
   data: string;
 }
 
-var upload = multer({
-  storage: multer.memoryStorage()
+const upload = multer({
+  storage: multer.memoryStorage(),
 }).single('uploadDocument');
 
 export class Controller {
+  async sendSignedTx(req: Request): Promise<string> {
+    const { signedData } = req.body;
+    l.info('signedData : ' + signedData);
 
-  async getNewInfo(req): Promise<txObject> {
+    // eslint-disable-next-line prefer-const
+    const receipt = await CertificateService.callSendSignedTx(signedData);
+
+    l.info('returnReceipt : ' + JSON.stringify(receipt));
+
+    const transactionHash = JSON.stringify(receipt.transactionHash);
+
+    return transactionHash;
+  }
+
+  async getNewBNFTTxObject(req): Promise<txObject> {
+    let returnResult: txObject;
+
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+    const bID: number = req.query.bID;
+    const ownerName: string = req.query.ownerName;
+    const manufacturerName: string = req.query.manufacturerName;
+    const modelName: string = req.query.modelName;
+    const manufacturerDate: string = req.query.manufacturerDate;
+
+    const getNewBNFTTxObjectResult = await CertificateService.callGetNewBNFTTxObject(
+      addressFrom,
+      bID,
+      ownerName,
+      manufacturerName,
+      modelName,
+      manufacturerDate
+    );
+
+    // eslint-disable-next-line prefer-const
+    returnResult = getNewBNFTTxObjectResult;
+    l.info('returnResult : ' + JSON.stringify(returnResult));
+
+    return returnResult;
+  }
+
+  async getRemoveBNFTTxObject(req): Promise<txObject> {
+    let returnResult: txObject;
+
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+    const bID: number = req.query.bID;
+
+    // eslint-disable-next-line prefer-const
+    const getRemoveBNFTTxObjectResult = await CertificateService.callGetRemoveBNFTTxObject(
+      addressFrom,
+      bID
+    );
+
+    // eslint-disable-next-line prefer-const
+    returnResult = getRemoveBNFTTxObjectResult;
+    l.info('returnResult : ' + JSON.stringify(returnResult));
+
+    return returnResult;
+  }
+
+  async getTransferFromBNFTTxObject(req): Promise<txObject> {
+    let returnResult: txObject;
+
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+    const transferFrom: string = req.query.transferFrom;
+    const transferTo: string = req.query.transferTo;
+    const bID: number = req.query.bID;
+
+    // eslint-disable-next-line prefer-const
+    const getTransferFromBNFTTxObjectResult = await CertificateService.callGetTransferFromBNFTTxObject(
+      addressFrom,
+      transferFrom,
+      transferTo,
+      bID
+    );
+
+    // eslint-disable-next-line prefer-const
+    returnResult = getTransferFromBNFTTxObjectResult;
+    l.info('returnResult : ' + JSON.stringify(returnResult));
+
+    return returnResult;
+  }
+
+  async getBalanceOfBNFT(req): Promise<string> {
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+
+    // eslint-disable-next-line prefer-const
+    const getBalanceOfBNFTResult = await CertificateService.callGetBalanceOfBNFT(
+      addressFrom
+    );
+
+    l.info('getBalanceOfResult : ' + getBalanceOfBNFTResult);
+
+    return getBalanceOfBNFTResult;
+  }
+
+  async getTokenURIBNFT(req): Promise<string> {
+    l.info('req.query.bID : ' + req.query.bID);
+
+    const bID: number = req.query.bID;
+
+    // eslint-disable-next-line prefer-const
+    const getTokenURIBNFTResult = await CertificateService.callGetTokenURIBNFT(
+      bID
+    );
+
+    l.info('getTokenURIBNFTResult : ' + getTokenURIBNFTResult);
+
+    return getTokenURIBNFTResult;
+  }
+
+  async getTotalSupplyBNFT(req): Promise<string> {
+    // eslint-disable-next-line prefer-const
+    const getTotalSupplyBNFTResult = await CertificateService.callGetTotalSupplyBNFT();
+
+    l.info('getTotalSupplyBNFTResult : ' + getTotalSupplyBNFTResult);
+
+    return getTotalSupplyBNFTResult;
+  }
+
+  async getNewCertiTxObject(req): Promise<txObject> {
     let returnResult: txObject;
 
     //const docName = req.files[0].originalname;
@@ -30,8 +156,8 @@ export class Controller {
     l.info('req.query.from : ' + req.query.from);
 
     const addressFrom: string = req.query.from;
-    const bID: string = req.query.bID;
-    const cID: string = req.query.cID;
+    const bID: number = req.query.bID;
+    const cID: number = req.query.cID;
     const grade: string = req.query.grade;
     const evaluationDate: string = req.query.evaluationDate;
     const evaluationAgency: string = req.query.evaluationAgency;
@@ -39,7 +165,7 @@ export class Controller {
     //const certificateHash: string = fileHash;
 
     // eslint-disable-next-line prefer-const
-    const getNewInfoResult = await CertificateService.callGetNewInfo(
+    const getNewCertiTxObjectResult = await CertificateService.callGetNewCertiTxObject(
       addressFrom,
       bID,
       cID,
@@ -50,31 +176,38 @@ export class Controller {
     );
 
     // eslint-disable-next-line prefer-const
-    returnResult = getNewInfoResult;
+    returnResult = getNewCertiTxObjectResult;
     l.info('returnResult : ' + JSON.stringify(returnResult));
 
     return returnResult;
   }
 
-  async newCertificate(req: Request, res: Response): Promise<string> {
-    const { signedData } = req.body;
-    l.info('signedData : ' + signedData);
+  async getRemoveCertiTxObject(req): Promise<txObject> {
+    let returnResult: txObject;
+
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+    const bID: number = req.query.bID;
 
     // eslint-disable-next-line prefer-const
-    const receipt = await CertificateService.callNewCertificate(signedData);
+    const getRemoveCertiTxObjectResult = await CertificateService.callGetRemoveCertiTxObject(
+      addressFrom,
+      bID
+    );
 
-    l.info('returnReceipt : ' + JSON.stringify(receipt));
+    // eslint-disable-next-line prefer-const
+    returnResult = getRemoveCertiTxObjectResult;
+    l.info('returnResult : ' + JSON.stringify(returnResult));
 
-    const transactionHash = JSON.stringify(receipt.transactionHash);
-
-    return transactionHash;
+    return returnResult;
   }
 
   async getCertificateInfo(req): Promise<string> {
     l.info('req.query.bID : ' + req.query.bID);
 
-    const bID: string = req.query.bID;
-    const cID: string = req.query.cID;
+    const bID: number = req.query.bID;
+    const cID: number = req.query.cID;
 
     // eslint-disable-next-line prefer-const
     const getCertificateInfoResult = await CertificateService.callGetCertificateInfo(
@@ -92,8 +225,8 @@ export class Controller {
   async getCheckLatestCertificate(req): Promise<string> {
     l.info('req.query.bID : ' + req.query.bID);
 
-    const bID: string = req.query.bID;
-    const cID: string = req.query.cID;
+    const bID: number = req.query.bID;
+    const cID: number = req.query.cID;
     const certificateHash: string = req.query.certificateHash;
 
     // eslint-disable-next-line prefer-const
@@ -113,8 +246,8 @@ export class Controller {
   async getCheckOldCertificate(req): Promise<string> {
     l.info('req.query.bID : ' + req.query.bID);
 
-    const bID: string = req.query.bID;
-    const cID: string = req.query.cID;
+    const bID: number = req.query.bID;
+    const cID: number = req.query.cID;
     const certificateHash: string = req.query.certificateHash;
 
     // eslint-disable-next-line prefer-const
@@ -132,7 +265,7 @@ export class Controller {
   async getCertificateCount(req): Promise<string> {
     l.info('req.query.bID : ' + req.query.bID);
 
-    const bID: string = req.query.bID;
+    const bID: number = req.query.bID;
 
     // eslint-disable-next-line prefer-const
     const getCertificateCountResult = await CertificateService.callGetCertificateCount(
@@ -144,5 +277,60 @@ export class Controller {
     return getCertificateCountResult;
   }
 
+  async getTransferBPTTxObject(req): Promise<txObject> {
+    let returnResult: txObject;
+
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+    const recipient: string = req.query.recipient;
+    const amount: number = req.query.amount;
+
+    // eslint-disable-next-line prefer-const
+    const getTransferBPTTxObjectResult = await CertificateService.callGetTransferBPTTxObject(
+      addressFrom,
+      recipient,
+      amount
+    );
+
+    // eslint-disable-next-line prefer-const
+    returnResult = getTransferBPTTxObjectResult;
+    l.info('returnResult : ' + JSON.stringify(returnResult));
+
+    return returnResult;
+  }
+
+  async getSymbolBPT(req): Promise<string> {
+    // eslint-disable-next-line prefer-const
+    const getSymbolBPTResult = await CertificateService.callGetSymbolBPT();
+
+    l.info('getSymbolBPTResult : ' + getSymbolBPTResult);
+
+    return getSymbolBPTResult;
+  }
+
+  async getTotalSupplyBPT(req): Promise<string> {
+    // eslint-disable-next-line prefer-const
+    const getTotalSupplyBPTResult = await CertificateService.callGetTotalSupplyBPT();
+
+    l.info('getTotalSupplyBPTResult : ' + getTotalSupplyBPTResult);
+
+    return getTotalSupplyBPTResult;
+  }
+
+  async getBalanceOfBPT(req): Promise<string> {
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+
+    // eslint-disable-next-line prefer-const
+    const getBalanceOfBPTResult = await CertificateService.callGetBalanceOfBPT(
+      addressFrom
+    );
+
+    l.info('getBalanceOfBPTResult : ' + getBalanceOfBPTResult);
+
+    return getBalanceOfBPTResult;
+  }
 }
 export default new Controller();

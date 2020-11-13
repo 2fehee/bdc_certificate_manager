@@ -13,11 +13,21 @@ s.cp(
 );
 s.mkdir('-p', `${outDir}/contract/bdcCertificateManager/build/`);
 s.cp(
-  'contract/bdcCertificateManager/build/BdcCertificateManager.json',
-  `${outDir}/contract/bdcCertificateManager/build/BdcCertificateManager.json`
+  'contract/bdcCertificateManager/build/bdcCertificateManager.json',
+  `${outDir}/contract/bdcCertificateManager/build/bdcCertificateManager.json`
 );
 s.mkdir('-p', `${outDir}/contract/bdcCertificateManager/contracts/`);
 s.cp(
-  'contract/bdcCertificateManager/contracts/BdcCertificateManager.sol',
-  `${outDir}/contract/bdcCertificateManager/contracts/BdcCertificateManager.sol`
+  'contract/bdcCertificateManager/contracts/bdcCertificateManager.sol',
+  `${outDir}/contract/bdcCertificateManager/contracts/bdcCertificateManager.sol`
+);
+s.mkdir('-p', `${outDir}/contract/bdcBPT/build/`);
+s.cp(
+  'contract/bdcBPT/build/BdcBPT.json',
+  `${outDir}/contract/bdcBPT/build/BdcBPT.json`
+);
+s.mkdir('-p', `${outDir}/contract/bdcBPT/contracts/`);
+s.cp(
+  'contract/bdcBPT/contracts/BdcBPT.sol',
+  `${outDir}/contract/bdcBPT/contracts/BdcBPT.sol`
 );

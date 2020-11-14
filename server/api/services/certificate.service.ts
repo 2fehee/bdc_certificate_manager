@@ -25,7 +25,10 @@ const addressToBBPT = process.env.BDC_BPT;
 
 const web3 = web3Config();
 
-const BCMContract = new web3.eth.Contract(bdcCertificateManagerABI, addressToBCM);
+const BCMContract = new web3.eth.Contract(
+  bdcCertificateManagerABI,
+  addressToBCM
+);
 const BBPTContract = new web3.eth.Contract(bdcBPTABI, addressToBBPT);
 
 export class CertificateService {

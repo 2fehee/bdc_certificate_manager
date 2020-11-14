@@ -148,10 +148,10 @@ export class Controller {
   async getNewCertiTxObject(req): Promise<txObject> {
     let returnResult: txObject;
 
-    //const docName = req.files[0].originalname;
-    //const fileHash = await CertificateService.getFileHash(req.files[0].buffer);
-    //l.info('docName : ' + docName);
-    //l.info('fileHash : ' + fileHash);
+    // const docName = req.files[0].originalname;
+    // const fileHash = await CertificateService.getFileHash(req.files[0].buffer);
+    // l.info('docName : ' + docName);
+    // l.info('fileHash : ' + fileHash);
 
     l.info('req.query.from : ' + req.query.from);
 
@@ -162,7 +162,7 @@ export class Controller {
     const evaluationDate: string = req.query.evaluationDate;
     const evaluationAgency: string = req.query.evaluationAgency;
     const certificateHash: string = req.query.certificateHash;
-    //const certificateHash: string = fileHash;
+    // certificateHash: string = fileHash;
 
     // eslint-disable-next-line prefer-const
     const getNewCertiTxObjectResult = await CertificateService.callGetNewCertiTxObject(

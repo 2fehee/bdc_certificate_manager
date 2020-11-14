@@ -153,15 +153,15 @@ export class Controller {
     // l.info('docName : ' + docName);
     // l.info('fileHash : ' + fileHash);
 
-    l.info('req.query.from : ' + req.query.from);
+    l.info('req.body.from : ' + req.body.from);
 
-    const addressFrom: string = req.query.from;
-    const bID: number = req.query.bID;
-    const cID: number = req.query.cID;
-    const grade: string = req.query.grade;
-    const evaluationDate: string = req.query.evaluationDate;
-    const evaluationAgency: string = req.query.evaluationAgency;
-    const certificateHash: string = req.query.certificateHash;
+    const addressFrom: string = req.body.from;
+    const bID: number = req.body.bID;
+    const cID: number = req.body.cID;
+    const grade: string = req.body.grade;
+    const evaluationDate: string = req.body.evaluationDate;
+    const evaluationAgency: string = req.body.evaluationAgency;
+    const certificateHash: string = req.body.certificateHash;
     // certificateHash: string = fileHash;
 
     // eslint-disable-next-line prefer-const
@@ -223,11 +223,11 @@ export class Controller {
   }
 
   async getCheckLatestCertificate(req): Promise<string> {
-    l.info('req.query.bID : ' + req.query.bID);
+    l.info('req.body.bID : ' + req.query.bID);
 
-    const bID: number = req.query.bID;
-    const cID: number = req.query.cID;
-    const certificateHash: string = req.query.certificateHash;
+    const bID: number = req.body.bID;
+    const cID: number = req.body.cID;
+    const certificateHash: string = req.body.certificateHash;
 
     // eslint-disable-next-line prefer-const
     const getCheckLatestCertificateResult = await CertificateService.callGetCheckLatestCertificate(
@@ -244,11 +244,11 @@ export class Controller {
   }
 
   async getCheckOldCertificate(req): Promise<string> {
-    l.info('req.query.bID : ' + req.query.bID);
+    l.info('req.body.bID : ' + req.body.bID);
 
-    const bID: number = req.query.bID;
-    const cID: number = req.query.cID;
-    const certificateHash: string = req.query.certificateHash;
+    const bID: number = req.body.bID;
+    const cID: number = req.body.cID;
+    const certificateHash: string = req.body.certificateHash;
 
     // eslint-disable-next-line prefer-const
     const getCheckOldCertificateResult = await CertificateService.callGetCheckOldCertificate(

@@ -374,53 +374,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/DefaultErrorResponse'
   /certificate/preparation/newCertiTxObject:
-    get:
+    post:
       tags:
         - Certificate
       description: get NewCertiTxObject
-      parameters:
-        - name: from
-          in: query
-          description: from
-          required: true
-          schema:
-            type: string
-        - name: bID
-          in: query
-          description: bID
-          required: true
-          schema:
-            type: string
-        - name: cID
-          in: query
-          description: cID
-          required: true
-          schema:
-            type: string
-        - name: grade
-          in: query
-          description: grade
-          required: true
-          schema:
-            type: string
-        - name: evaluationDate
-          in: query
-          description: evaluationDate
-          required: true
-          schema:
-            type: string
-        - name: evaluationAgency
-          in: query
-          description: evaluationAgency
-          required: true
-          schema:
-            type: string
-        - name: certificateHash
-          in: query
-          description: certificateHash
-          required: true
-          schema:
-            type: string
+      requestBody:
+        description: newCertiTxObject
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newCertiTxObject'
+        required: true
       responses:
         '200':
           description: result is Transaction Object (before sign)
@@ -551,29 +515,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/DefaultErrorResponse'
   /certificate/checkLatestCertificate:
-    get:
+    post:
       tags:
         - Certificate
       description: get checkLatestCertificate
-      parameters:
-        - name: bID
-          in: query
-          description: bID
-          required: true
-          schema:
-            type: string
-        - name: cID
-          in: query
-          description: cID
-          required: true
-          schema:
-            type: string
-        - name: certificateHash
-          in: query
-          description: certificateHash
-          required: true
-          schema:
-            type: string
+      requestBody:
+        description: checkLatestCertificate
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkLatestCertificate'
+        required: true
       responses:
         '200':
           description: result is checkLatestCertificate
@@ -606,29 +558,17 @@ paths:
               schema:
                 $ref: '#/components/schemas/DefaultErrorResponse'
   /certificate/checkOldCertificate:
-    get:
+    post:
       tags:
         - Certificate
       description: get checkOldCertificate
-      parameters:
-        - name: bID
-          in: query
-          description: bID
-          required: true
-          schema:
-            type: string
-        - name: cID
-          in: query
-          description: cID
-          required: true
-          schema:
-            type: string
-        - name: certificateHash
-          in: query
-          description: certificateHash
-          required: true
-          schema:
-            type: string
+      requestBody:
+        description: checkOldCertificate
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/checkOldCertificate'
+        required: true
       responses:
         '200':
           description: result is checkOldCertificate
@@ -917,6 +857,57 @@ components:
       type: object
       properties:
         signedData:
+          type: string
+    newCertiTxObject:
+      type: object
+      required:
+        - from
+        - bID
+        - cID
+        - grade
+        - evaluationDate
+        - evaluationAgency
+        - cFile
+      properties:
+        from:
+          type: string
+        bID:
+          type: number
+        cID:
+          type: number
+        grade:
+          type: string
+        evaluationDate:
+          type: string
+        evaluationAgency:
+          type: string
+        cFile:
+          type: string
+    checkLatestCertificate:
+      type: object
+      required:
+        - bID
+        - cID
+        - cFile
+      properties:
+        bID:
+          type: number
+        cID:
+          type: number
+        cFile:
+          type: string
+    checkOldCertificate:
+      type: object
+      required:
+        - bID
+        - cID
+        - cFile
+      properties:
+        bID:
+          type: number
+        cID:
+          type: number
+        cFile:
           type: string
     Util:
       type: object

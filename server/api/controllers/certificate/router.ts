@@ -7,10 +7,7 @@ import { userAuth } from '../../middlewares/auth.handler';
 export default express
   .Router()
   .post('/SignedTx', wrapAsync(controller.sendSignedTx))
-  .get(
-    '/preparation/newBNFTTxObject',
-    wrapAsync(controller.getNewBNFTTxObject)
-  )
+  .get('/preparation/newBNFTTxObject', wrapAsync(controller.getNewBNFTTxObject))
   .get(
     '/preparation/removeBNFTTxObject',
     wrapAsync(controller.getRemoveBNFTTxObject)
@@ -22,7 +19,7 @@ export default express
   .get('/balanceOfBNFT/', wrapAsync(controller.getBalanceOfBNFT))
   .get('/tokenURIBNFT/', wrapAsync(controller.getTokenURIBNFT))
   .get('/totalSupplyBNFT/', wrapAsync(controller.getTotalSupplyBNFT))
-  .get(
+  .post(
     '/preparation/newCertiTxObject',
     wrapAsync(controller.getNewCertiTxObject)
   )
@@ -31,18 +28,12 @@ export default express
     wrapAsync(controller.getRemoveCertiTxObject)
   )
   .get('/certificateInfo', wrapAsync(controller.getCertificateInfo))
-  .get(
+  .post(
     '/checkLatestCertificate',
     wrapAsync(controller.getCheckLatestCertificate)
   )
-  .get(
-    '/checkOldCertificate',
-    wrapAsync(controller.getCheckOldCertificate)
-  )
-  .get(
-    '/certificateCount',
-    wrapAsync(controller.getCertificateCount)
-  )
+  .post('/checkOldCertificate', wrapAsync(controller.getCheckOldCertificate))
+  .get('/certificateCount', wrapAsync(controller.getCertificateCount))
   .get(
     '/preparation/transferBPTTxObject',
     wrapAsync(controller.getTransferBPTTxObject)

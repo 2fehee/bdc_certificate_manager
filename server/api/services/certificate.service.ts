@@ -46,6 +46,35 @@ export class CertificateService {
     return TransactionService.sendSignedTransaction(signedData);
   }
 
+  async callGetInitBNFTTxObject(
+    addressFrom: string,
+    name: string,
+    symbol: string
+  ): Promise<txObject> {
+    l.info('addressTo : ' + addressToBCM);
+    l.info('addressFrom : ' + addressFrom);
+    l.info('name : ' + name);
+    l.info('symbol : ' + symbol);
+
+    return web3.eth
+      .getTransactionCount(addressFrom, 'pending')
+      .then(txnCount => {
+        // Create the transaction object
+        l.info('txnCount: ', web3.utils.numberToHex(txnCount));
+
+        const returnTxObject: txObject = {
+          nonce: web3.utils.numberToHex(txnCount),
+          from: addressFrom,
+          gas: web3.utils.toHex(21000000),
+          gasPrice: web3.utils.numberToHex(0),
+          to: addressToBCM,
+
+          data: BCMContract.methods.initialize(name, symbol).encodeABI(),
+        };
+        return returnTxObject;
+      });
+  }
+
   async callGetNewBNFTTxObject(
     addressFrom: string,
     bID: number,
@@ -74,12 +103,7 @@ export class CertificateService {
           to: addressToBCM,
 
           data: BCMContract.methods
-            .createBNFT(
-              bID,
-              manufacturerName,
-              modelName,
-              manufacturerDate
-            )
+            .createBNFT(bID, manufacturerName, modelName, manufacturerDate)
             .encodeABI(),
         };
         return returnTxObject;
@@ -282,6 +306,42 @@ export class CertificateService {
     l.info('bID : ' + bID);
 
     return BCMContract.methods.getcertificateCount(bID).call();
+  }
+
+  async callGetInitBPTTxObject(
+    addressFrom: string,
+    name: string,
+    symbol: string,
+    decimals: number,
+    initialSupply: number,
+    initialHolder: string
+  ): Promise<txObject> {
+    l.info('addressTo : ' + addressToBBPT);
+    l.info('name : ' + name);
+    l.info('symbol : ' + symbol);
+    l.info('decimals : ' + decimals);
+    l.info('initialSupply : ' + initialSupply);
+    l.info('initialHolder : ' + initialHolder);
+
+    return web3.eth
+      .getTransactionCount(addressFrom, 'pending')
+      .then(txnCount => {
+        // Create the transaction object
+        l.info('txnCount: ', web3.utils.numberToHex(txnCount));
+
+        const returnTxObject: txObject = {
+          nonce: web3.utils.numberToHex(txnCount),
+          from: addressFrom,
+          gas: web3.utils.toHex(21000000),
+          gasPrice: web3.utils.numberToHex(0),
+          to: addressToBBPT,
+
+          data: BBPTContract.methods
+            .initialize(name, symbol, decimals, initialSupply, initialHolder)
+            .encodeABI(),
+        };
+        return returnTxObject;
+      });
   }
 
   async callGetTransferBPTTxObject(

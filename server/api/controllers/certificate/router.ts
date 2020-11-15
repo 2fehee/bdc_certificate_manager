@@ -7,6 +7,10 @@ import { userAuth } from '../../middlewares/auth.handler';
 export default express
   .Router()
   .post('/SignedTx', wrapAsync(controller.sendSignedTx))
+  .get(
+    '/preparation/initBNFTTxObject',
+    wrapAsync(controller.getInitBNFTTxObject)
+  )
   .get('/preparation/newBNFTTxObject', wrapAsync(controller.getNewBNFTTxObject))
   .get(
     '/preparation/removeBNFTTxObject',
@@ -34,6 +38,7 @@ export default express
   )
   .post('/checkOldCertificate', wrapAsync(controller.getCheckOldCertificate))
   .get('/certificateCount', wrapAsync(controller.getCertificateCount))
+  .get('/preparation/initBPTTxObject', wrapAsync(controller.getInitBPTTxObject))
   .get(
     '/preparation/transferBPTTxObject',
     wrapAsync(controller.getTransferBPTTxObject)

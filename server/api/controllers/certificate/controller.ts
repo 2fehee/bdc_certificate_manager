@@ -32,6 +32,28 @@ export class Controller {
     return transactionHash;
   }
 
+  async getInitBNFTTxObject(req): Promise<txObject> {
+    let returnResult: txObject;
+
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+    const name: string = req.query.name;
+    const symbol: string = req.query.symbol;
+
+    const getInitBNFTTxObjectResult = await CertificateService.callGetInitBNFTTxObject(
+      addressFrom,
+      name,
+      symbol
+    );
+
+    // eslint-disable-next-line prefer-const
+    returnResult = getInitBNFTTxObjectResult;
+    l.info('returnResult : ' + JSON.stringify(returnResult));
+
+    return returnResult;
+  }
+
   async getNewBNFTTxObject(req): Promise<txObject> {
     let returnResult: txObject;
 
@@ -273,6 +295,35 @@ export class Controller {
     l.info('getCertificateCountResult : ' + getCertificateCountResult);
 
     return getCertificateCountResult;
+  }
+
+  async getInitBPTTxObject(req): Promise<txObject> {
+    let returnResult: txObject;
+
+    l.info('req.query.from : ' + req.query.from);
+
+    const addressFrom: string = req.query.from;
+    const name: string = req.query.name;
+    const symbol: string = req.query.symbol;
+    const decimals: number = req.query.decimals;
+    const initialSupply: number = req.query.initialSupply;
+    const initialHolder: string = req.query.initialHolder;
+
+    // eslint-disable-next-line prefer-const
+    const getInitBPTTxObjectResult = await CertificateService.callGetInitBPTTxObject(
+      addressFrom,
+      name,
+      symbol,
+      decimals,
+      initialSupply,
+      initialHolder
+    );
+
+    // eslint-disable-next-line prefer-const
+    returnResult = getInitBPTTxObjectResult;
+    l.info('returnResult : ' + JSON.stringify(returnResult));
+
+    return returnResult;
   }
 
   async getTransferBPTTxObject(req): Promise<txObject> {

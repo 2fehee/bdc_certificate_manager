@@ -68,6 +68,61 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/preparation/initBNFTTxObject:
+    get:
+      tags:
+        - Certificate
+      description: get InitBNFTTxObject
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: name
+          required: true
+          schema:
+            type: string
+        - name: symbol
+          in: query
+          description: symbol
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is Transaction Object (before sign)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxObjectResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
   /certificate/preparation/newBNFTTxObject:
     get:
       tags:
@@ -613,6 +668,79 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CommonStringResponse'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '401':
+          description: Authorization information is missing or invalid.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        '404':
+          description: A response data was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+        5XX:
+          description: Unexpected error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DefaultErrorResponse'
+  /certificate/preparation/initBPTTxObject:
+    get:
+      tags:
+        - Certificate
+      description: get InitBPTTxObject
+      parameters:
+        - name: from
+          in: query
+          description: from
+          required: true
+          schema:
+            type: string
+        - name: name
+          in: query
+          description: name
+          required: true
+          schema:
+            type: string
+        - name: symbol
+          in: query
+          description: symbol
+          required: true
+          schema:
+            type: string
+        - name: decimals
+          in: query
+          description: decimals
+          required: true
+          schema:
+            type: number
+        - name: initialSupply
+          in: query
+          description: initialSupply
+          required: true
+          schema:
+            type: number
+        - name: initialHolder
+          in: query
+          description: initialHolder
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: result is Transaction Object (before sign)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxObjectResponse'
         '400':
           description: Bad request.
           content:

@@ -16,7 +16,7 @@ export default express
     '/preparation/transferFromBNFTTxObject',
     wrapAsync(controller.getTransferFromBNFTTxObject)
   )
-  .get('/balanceOfBNFT/', wrapAsync(controller.getBalanceOfBNFT))
+  .get('/ownerOfBNFT/', wrapAsync(controller.getOwnerOfBNFT))
   .get('/tokenURIBNFT/', wrapAsync(controller.getTokenURIBNFT))
   .get('/totalSupplyBNFT/', wrapAsync(controller.getTotalSupplyBNFT))
   .post(

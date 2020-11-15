@@ -86,12 +86,6 @@ paths:
           required: true
           schema:
             type: number
-        - name: ownerName
-          in: query
-          description: ownerName
-          required: true
-          schema:
-            type: string
         - name: manufacturerName
           in: query
           description: manufacturerName
@@ -251,21 +245,21 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DefaultErrorResponse'
-  /certificate/balanceOfBNFT:
+  /certificate/ownerOfBNFT:
     get:
       tags:
         - Certificate
-      description: get BalanceOfBNFT
+      description: get OwnerOfBNFT
       parameters:
-        - name: from
+        - name: bID
           in: query
-          description: from
+          description: bID
           required: true
           schema:
-            type: string
+            type: number
       responses:
         '200':
-          description: result is BalanceOfBNFT
+          description: result is OwnerOfBNFT
           content:
             application/json:
               schema:

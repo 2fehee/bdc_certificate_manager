@@ -39,7 +39,6 @@ export class Controller {
 
     const addressFrom: string = req.query.from;
     const bID: number = req.query.bID;
-    const ownerName: string = req.query.ownerName;
     const manufacturerName: string = req.query.manufacturerName;
     const modelName: string = req.query.modelName;
     const manufacturerDate: string = req.query.manufacturerDate;
@@ -47,7 +46,6 @@ export class Controller {
     const getNewBNFTTxObjectResult = await CertificateService.callGetNewBNFTTxObject(
       addressFrom,
       bID,
-      ownerName,
       manufacturerName,
       modelName,
       manufacturerDate
@@ -106,19 +104,19 @@ export class Controller {
     return returnResult;
   }
 
-  async getBalanceOfBNFT(req): Promise<string> {
-    l.info('req.query.from : ' + req.query.from);
+  async getOwnerOfBNFT(req): Promise<string> {
+    l.info('req.query.bID : ' + req.query.bID);
 
-    const addressFrom: string = req.query.from;
+    const bID: number = req.query.bID;
 
     // eslint-disable-next-line prefer-const
-    const getBalanceOfBNFTResult = await CertificateService.callGetBalanceOfBNFT(
-      addressFrom
+    const getOwnerOfBNFTResult = await CertificateService.callGetOwnerOfBNFT(
+      bID
     );
 
-    l.info('getBalanceOfResult : ' + getBalanceOfBNFTResult);
+    l.info('getOwnerOfBNFTResult : ' + getOwnerOfBNFTResult);
 
-    return getBalanceOfBNFTResult;
+    return getOwnerOfBNFTResult;
   }
 
   async getTokenURIBNFT(req): Promise<string> {

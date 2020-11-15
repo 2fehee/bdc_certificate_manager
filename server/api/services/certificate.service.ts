@@ -49,7 +49,6 @@ export class CertificateService {
   async callGetNewBNFTTxObject(
     addressFrom: string,
     bID: number,
-    ownerName: string,
     manufacturerName: string,
     modelName: string,
     manufacturerDate: string
@@ -57,7 +56,6 @@ export class CertificateService {
     l.info('addressTo : ' + addressToBCM);
     l.info('addressFrom : ' + addressFrom);
     l.info('bID : ' + bID);
-    l.info('ownerName : ' + ownerName);
     l.info('manufacturerName : ' + manufacturerName);
     l.info('modelName : ' + modelName);
     l.info('manufacturerDate : ' + manufacturerDate);
@@ -78,7 +76,6 @@ export class CertificateService {
           data: BCMContract.methods
             .createBNFT(
               bID,
-              ownerName,
               manufacturerName,
               modelName,
               manufacturerDate
@@ -149,11 +146,11 @@ export class CertificateService {
       });
   }
 
-  async callGetBalanceOfBNFT(addressFrom: string): Promise<string> {
+  async callGetOwnerOfBNFT(bID: number): Promise<string> {
     l.info('addressTo : ' + addressToBCM);
-    l.info('addressFrom : ' + addressFrom);
+    l.info('bID : ' + bID);
 
-    return BCMContract.methods.balanceOf(addressFrom).call();
+    return BCMContract.methods.ownerOf(bID).call();
   }
 
   async callGetTokenURIBNFT(bID: number): Promise<string> {
@@ -309,9 +306,7 @@ export class CertificateService {
           gasPrice: web3.utils.numberToHex(0),
           to: addressToBBPT,
 
-          data: BBPTContract.methods
-            .transfer(recipient, amount)
-            .encodeABI(),
+          data: BBPTContract.methods.transfer(recipient, amount).encodeABI(),
         };
         return returnTxObject;
       });

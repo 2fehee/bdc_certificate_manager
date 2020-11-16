@@ -1010,12 +1010,21 @@ components:
       required:
         - bID
         - cID
+        - grade
+        - evaluationDate
+        - evaluationAgency
         - cFile
       properties:
         bID:
           type: number
         cID:
           type: number
+        grade:
+          type: string
+        evaluationDate:
+          type: string
+        evaluationAgency:
+          type: string
         cFile:
           type: string
     checkOldCertificate:
@@ -1023,12 +1032,21 @@ components:
       required:
         - bID
         - cID
+        - grade
+        - evaluationDate
+        - evaluationAgency
         - cFile
       properties:
         bID:
           type: number
         cID:
           type: number
+        grade:
+          type: string
+        evaluationDate:
+          type: string
+        evaluationAgency:
+          type: string
         cFile:
           type: string
     Util:

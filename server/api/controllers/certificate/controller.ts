@@ -13,9 +13,9 @@ interface txObject {
   data: string;
 }
 
-const upload = multer({
-  storage: multer.memoryStorage(),
-}).single('uploadDocument');
+// const upload = multer({
+//   storage: multer.memoryStorage(),
+// }).single('uploadDocument');
 
 export class Controller {
   async sendSignedTx(req: Request): Promise<string> {
@@ -168,10 +168,9 @@ export class Controller {
   async getNewCertiTxObject(req): Promise<txObject> {
     let returnResult: txObject;
 
-    // const docName = req.files[0].originalname;
-    // const fileHash = await CertificateService.getFileHash(req.files[0].buffer);
-    // l.info('docName : ' + docName);
-    // l.info('fileHash : ' + fileHash);
+    //multer로 시도해볼 경우
+    //const docName = req.files[0].originalname;
+    //const fileHash = await CertificateService.getFileHash(req.files[0].buffer);
 
     l.info('req.body.from : ' + req.body.from);
 
@@ -181,8 +180,18 @@ export class Controller {
     const grade: string = req.body.grade;
     const evaluationDate: string = req.body.evaluationDate;
     const evaluationAgency: string = req.body.evaluationAgency;
-    const certificateHash: string = req.body.certificateHash;
-    // certificateHash: string = fileHash;
+    const cFile: string = req.body.cFile;
+    const hashInput: string =
+      bID.toString() +
+      cID.toString() +
+      grade +
+      evaluationDate +
+      evaluationAgency +
+      cFile;
+
+    const hashOutput = await CertificateService.getFileHash(hashInput);
+    l.info('hashOutput : ' + hashOutput);
+    const certificateHash: string = hashOutput;
 
     // eslint-disable-next-line prefer-const
     const getNewCertiTxObjectResult = await CertificateService.callGetNewCertiTxObject(
@@ -243,11 +252,25 @@ export class Controller {
   }
 
   async getCheckLatestCertificate(req): Promise<string> {
-    l.info('req.body.bID : ' + req.query.bID);
+    l.info('req.body.bID : ' + req.body.bID);
 
     const bID: number = req.body.bID;
     const cID: number = req.body.cID;
-    const certificateHash: string = req.body.certificateHash;
+    const grade: string = req.body.grade;
+    const evaluationDate: string = req.body.evaluationDate;
+    const evaluationAgency: string = req.body.evaluationAgency;
+    const cFile: string = req.body.cFile;
+    const hashInput: string =
+      bID.toString() +
+      cID.toString() +
+      grade +
+      evaluationDate +
+      evaluationAgency +
+      cFile;
+
+    const hashOutput = await CertificateService.getFileHash(hashInput);
+    l.info('hashOutput : ' + hashOutput);
+    const certificateHash: string = hashOutput;
 
     // eslint-disable-next-line prefer-const
     const getCheckLatestCertificateResult = await CertificateService.callGetCheckLatestCertificate(
@@ -268,7 +291,21 @@ export class Controller {
 
     const bID: number = req.body.bID;
     const cID: number = req.body.cID;
-    const certificateHash: string = req.body.certificateHash;
+    const grade: string = req.body.grade;
+    const evaluationDate: string = req.body.evaluationDate;
+    const evaluationAgency: string = req.body.evaluationAgency;
+    const cFile: string = req.body.cFile;
+    const hashInput: string =
+      bID.toString() +
+      cID.toString() +
+      grade +
+      evaluationDate +
+      evaluationAgency +
+      cFile;
+
+    const hashOutput = await CertificateService.getFileHash(hashInput);
+    l.info('hashOutput : ' + hashOutput);
+    const certificateHash: string = hashOutput;
 
     // eslint-disable-next-line prefer-const
     const getCheckOldCertificateResult = await CertificateService.callGetCheckOldCertificate(

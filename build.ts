@@ -13,13 +13,13 @@ s.cp(
 );
 s.mkdir('-p', `${outDir}/contract/bdcCertificateManager/build/`);
 s.cp(
-  'contract/bdcCertificateManager/build/bdcCertificateManager.json',
-  `${outDir}/contract/bdcCertificateManager/build/bdcCertificateManager.json`
+  'contract/bdcCertificateManager/build/BdcCertificateManager.json',
+  `${outDir}/contract/bdcCertificateManager/build/BdcCertificateManager.json`
 );
 s.mkdir('-p', `${outDir}/contract/bdcCertificateManager/contracts/`);
 s.cp(
-  'contract/bdcCertificateManager/contracts/bdcCertificateManager.sol',
-  `${outDir}/contract/bdcCertificateManager/contracts/bdcCertificateManager.sol`
+  'contract/bdcCertificateManager/contracts/BdcCertificateManager.sol',
+  `${outDir}/contract/bdcCertificateManager/contracts/BdcCertificateManager.sol`
 );
 s.mkdir('-p', `${outDir}/contract/bdcBPT/build/`);
 s.cp(
